@@ -3,7 +3,9 @@ export interface Ingredient {
   name: string;
   description: string;
   rarity: 'common' | 'uncommon' | 'rare' | 'legendary';
-  icon: string; // emoji for now
+  icon: string; // emoji for now, will be replaced with images later
+  image?: string; // path to ingredient image
+  color: string; // theme color for the ingredient
 }
 
 export interface Recipe {

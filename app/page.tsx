@@ -1,9 +1,9 @@
 'use client';
 
 import { useGameState } from './hooks/useGameState';
-import Cauldron from './components/Cauldron';
-import Inventory from './components/Inventory';
-import CraftingInterface from './components/CraftingInterface';
+import ImprovedCauldron from './components/ImprovedCauldron';
+import ImprovedInventory from './components/ImprovedInventory';
+import ImprovedCraftingInterface from './components/ImprovedCraftingInterface';
 import RecipeBook from './components/RecipeBook';
 import GameStats from './components/GameStats';
 
@@ -46,10 +46,10 @@ export default function Home() {
 
       {/* Main Game Area */}
       <main className="max-w-7xl mx-auto p-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Inventory */}
-          <div className="space-y-6">
-            <Inventory 
+          <div className="space-y-8">
+            <ImprovedInventory 
               inventory={gameState.inventory}
               onAddToCauldron={addToCauldron}
             />
@@ -61,7 +61,7 @@ export default function Home() {
 
           {/* Middle Column - Cauldron */}
           <div>
-            <Cauldron 
+            <ImprovedCauldron 
               cauldron={gameState.cauldron}
               onRemoveIngredient={removeFromCauldron}
               onClearCauldron={clearCauldron}
@@ -70,7 +70,7 @@ export default function Home() {
 
           {/* Right Column - Crafting */}
           <div>
-            <CraftingInterface 
+            <ImprovedCraftingInterface 
               onCraftPotion={craftPotion}
               disabled={!cauldronHasIngredients}
             />
