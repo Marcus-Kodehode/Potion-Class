@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Next.js Project
 
-## Getting Started
+A professional Next.js application with a well-organized folder structure.
 
-First, run the development server:
+## ✨ Features
+
+- 🎯 Modern Next.js setup
+- 📁 Professional folder structure
+- 🎨 Ready for styling (CSS/Tailwind)
+- 🔧 TypeScript ready
+- 📱 Responsive design ready
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+
+### Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+├── components/          # Reusable UI components
+│   ├── ui/             # Basic UI elements (buttons, inputs, etc.)
+│   ├── forms/          # Form components
+│   └── layout/         # Layout components (header, footer, etc.)
+├── lib/                # Utility libraries and configurations
+├── hooks/              # Custom React hooks
+├── types/              # TypeScript type definitions
+├── styles/             # Global styles and CSS modules
+└── utils/              # Helper functions and utilities
 
-## Learn More
+public/
+├── assets/
+│   ├── images/         # Static images
+│   └── icons/          # Icon files
 
-To learn more about Next.js, take a look at the following resources:
+docs/                   # Project documentation
+tests/                  # Test files
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Available Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Development
+npm run dev             # Start development server
+npm run build           # Build for production
+npm run start           # Start production server
 
-## Deploy on Vercel
+# Code Quality
+npm run lint            # Run ESLint
+npm run type-check      # Run TypeScript checks
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Styling
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is ready for your preferred styling solution:
+- CSS Modules
+- Tailwind CSS
+- Styled Components
+- Emotion
+
+## 📚 Learn More
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://reactjs.org/)
+- [TypeScript Documentation](https://www.typescriptlang.org/)
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+**"Great projects start with great structure."** 
+
+Built with ❤️ using Next.js
