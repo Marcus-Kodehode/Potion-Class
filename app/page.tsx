@@ -1,102 +1,93 @@
-import Image from "next/image";
+'use client';
+
+import { useGameState } from './hooks/useGameState';
+import Cauldron from './components/Cauldron';
+import Inventory from './components/Inventory';
+import CraftingInterface from './components/CraftingInterface';
+import RecipeBook from './components/RecipeBook';
+import GameStats from './components/GameStats';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const {
+    gameState,
+    addToCauldron,
+    removeFromCauldron,
+    clearCauldron,
+    craftPotion,
+    resetGame,
+    recipes
+  } = useGameState();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  const cauldronHasIngredients = Object.values(gameState.cauldron).some(amount => amount > 0);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white">
+      {/* Header */}
+      <header className="bg-black/30 backdrop-blur-sm border-b border-purple-500/30 p-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <span className="text-4xl">🧙‍♂️</span>
+            <div>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Mystic Potion Brewery
+              </h1>
+              <p className="text-gray-400 text-sm">Master the ancient art of digital alchemy</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Recipe Book Button */}
+      <RecipeBook 
+        recipes={recipes}
+        discoveredRecipes={gameState.discoveredRecipes}
+        craftedPotions={gameState.craftedPotions}
+      />
+
+      {/* Main Game Area */}
+      <main className="max-w-7xl mx-auto p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Inventory */}
+          <div className="space-y-6">
+            <Inventory 
+              inventory={gameState.inventory}
+              onAddToCauldron={addToCauldron}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <GameStats 
+              gameState={gameState}
+              onResetGame={resetGame}
+            />
+          </div>
+
+          {/* Middle Column - Cauldron */}
+          <div>
+            <Cauldron 
+              cauldron={gameState.cauldron}
+              onRemoveIngredient={removeFromCauldron}
+              onClearCauldron={clearCauldron}
+            />
+          </div>
+
+          {/* Right Column - Crafting */}
+          <div>
+            <CraftingInterface 
+              onCraftPotion={craftPotion}
+              disabled={!cauldronHasIngredients}
+            />
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="mt-12 bg-black/30 backdrop-blur-sm border-t border-purple-500/30 p-6">
+        <div className="max-w-7xl mx-auto text-center text-gray-400">
+          <p className="text-sm">
+            🌟 Craft potions, discover secrets, master the mystical arts 🌟
+          </p>
+          <p className="text-xs mt-2">
+            Built with Next.js, TypeScript & Tailwind CSS
+          </p>
+        </div>
       </footer>
     </div>
   );
