@@ -1,142 +1,209 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { GameState } from '../types/game';
-import { INGREDIENTS } from '../data/ingredients';
+import { useState } from "react";
+import Image from "next/image";
+import { GameState } from "../types/game";
+import { INGREDIENTS } from "../data/ingredients";
 
 interface ImprovedInventoryProps {
-  inventory: GameState['inventory'];
+  inventory: GameState["inventory"];
   onAddToCauldron: (ingredientId: string) => boolean;
 }
 
-export default function ImprovedInventory({ inventory, onAddToCauldron }: ImprovedInventoryProps) {
-  const [selectedIngredient, setSelectedIngredient] = useState<string | null>(null);
+export default function ImprovedInventory({
+  inventory,
+  onAddToCauldron,
+}: ImprovedInventoryProps) {
+  const [hoveredIngredient, setHoveredIngredient] = useState<string | null>(
+    null
+  );
 
   const handleAddIngredient = (ingredientId: string) => {
     const success = onAddToCauldron(ingredientId);
     if (success) {
-      // Add some visual feedback
       const button = document.getElementById(`ingredient-${ingredientId}`);
       if (button) {
-        button.classList.add('animate-pulse');
-        setTimeout(() => button.classList.remove('animate-pulse'), 300);
+        button.classList.add("animate-pulse");
+        setTimeout(() => button.classList.remove("animate-pulse"), 300);
       }
-    }
-  };
-
-  const getRarityGradient = (rarity: string) => {
-    switch (rarity) {
-      case 'common': return 'from-gray-600 to-gray-700';
-      case 'uncommon': return 'from-green-600 to-green-700';
-      case 'rare': return 'from-blue-600 to-blue-700';
-      case 'legendary': return 'from-purple-600 to-purple-700';
-      default: return 'from-gray-600 to-gray-700';
     }
   };
 
   const getRarityBorder = (rarity: string) => {
     switch (rarity) {
-      case 'common': return 'border-gray-400';
-      case 'uncommon': return 'border-green-400';
-      case 'rare': return 'border-blue-400';
-      case 'legendary': return 'border-purple-400 shadow-purple-400/50';
-      default: return 'border-gray-400';
+      case "common":
+        return "border-slate-600/60";
+      case "uncommon":
+        return "border-emerald-600/60";
+      case "rare":
+        return "border-blue-600/60";
+      case "legendary":
+        return "border-amber-500/70 shadow-lg shadow-amber-500/20";
+      default:
+        return "border-slate-600/60";
     }
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-800 border-2 border-green-500 rounded-xl p-6 shadow-2xl">
+    <div className="bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 rounded-xl p-6 shadow-2xl">
       {/* Header */}
-      <div className="text-center mb-6">
-        <div className="text-5xl mb-3 animate-bounce">🎒</div>
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-          Alchemists Satchel
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-slate-100 mb-1">
+          Ingredient Inventory
         </h2>
-        <p className="text-gray-400 text-sm mt-1">Click ingredients to add them to your cauldron</p>
+        <p className="text-slate-400 text-sm">
+          Click to add ingredients to your cauldron
+        </p>
       </div>
 
       {/* Ingredient Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-3">
         {Object.entries(INGREDIENTS).map(([ingredientId, ingredient]) => {
           const amount = inventory[ingredientId] || 0;
           const isAvailable = amount > 0;
-          const isSelected = selectedIngredient === ingredientId;
+          const isHovered = hoveredIngredient === ingredientId;
 
           return (
             <div
               key={ingredientId}
-              className="relative group"
-              onMouseEnter={() => setSelectedIngredient(ingredientId)}
-              onMouseLeave={() => setSelectedIngredient(null)}
+              className="relative"
+              onMouseEnter={() => setHoveredIngredient(ingredientId)}
+              onMouseLeave={() => setHoveredIngredient(null)}
             >
               <button
                 id={`ingredient-${ingredientId}`}
                 onClick={() => handleAddIngredient(ingredientId)}
                 disabled={!isAvailable}
                 className={`
-                  w-full p-4 rounded-xl border-2 transition-all duration-300 text-center relative overflow-hidden
-                  ${isAvailable 
-                    ? `${getRarityBorder(ingredient.rarity)} bg-gradient-to-br ${getRarityGradient(ingredient.rarity)} hover:scale-105 hover:shadow-lg cursor-pointer transform` 
-                    : 'border-gray-600 bg-gray-800/50 cursor-not-allowed opacity-50'
+                  w-full aspect-square rounded-lg border transition-all duration-300 relative overflow-hidden group
+                  ${
+                    isAvailable
+                      ? `${getRarityBorder(
+                          ingredient.rarity
+                        )} hover:scale-[1.02] cursor-pointer transform hover:shadow-xl`
+                      : "border-slate-800 cursor-not-allowed opacity-40"
                   }
-                  ${isSelected ? 'ring-2 ring-white/50' : ''}
-                  ${ingredient.rarity === 'legendary' ? 'shadow-lg' : ''}
                 `}
               >
-                {/* Rarity Glow Effect */}
-                {ingredient.rarity === 'legendary' && isAvailable && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-400/20 animate-pulse rounded-xl" />
+                {/* Background Image */}
+                {ingredient.image && (
+                  <div className="absolute inset-0">
+                    <Image
+                      src={ingredient.image}
+                      alt={ingredient.name}
+                      fill
+                      className={`object-cover ${
+                        !isAvailable ? "grayscale" : ""
+                      }`}
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
+                    {/* Subtle dark overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
+                  </div>
                 )}
-                
-                {/* Content */}
-                <div className="relative z-10">
-                  <div className="text-4xl mb-2 transform group-hover:scale-110 transition-transform">
-                    {ingredient.icon}
+
+                {/* Legendary Subtle Glow */}
+                {ingredient.rarity === "legendary" && isAvailable && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-amber-500/10 animate-pulse-slow" />
+                )}
+
+                {/* Content Overlay */}
+                <div className="absolute inset-0 flex flex-col justify-between p-3 z-10">
+                  {/* Top Bar */}
+                  <div className="flex items-start justify-between">
+                    {/* Rarity Badge */}
+                    <div
+                      className={`
+                      px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-md
+                      ${
+                        ingredient.rarity === "common"
+                          ? "bg-slate-800/80 text-slate-300 border border-slate-600/50"
+                          : ingredient.rarity === "uncommon"
+                          ? "bg-emerald-900/80 text-emerald-300 border border-emerald-600/50"
+                          : ingredient.rarity === "rare"
+                          ? "bg-blue-900/80 text-blue-300 border border-blue-600/50"
+                          : "bg-amber-900/80 text-amber-300 border border-amber-600/50"
+                      }
+                    `}
+                    >
+                      {ingredient.rarity}
+                    </div>
+
+                    {/* Amount Badge */}
+                    <div
+                      className={`
+                      px-2.5 py-1 rounded-md text-sm font-bold backdrop-blur-md border
+                      ${
+                        isAvailable
+                          ? "bg-slate-900/90 text-slate-100 border-slate-600/50"
+                          : "bg-slate-900/60 text-slate-600 border-slate-700/30"
+                      }
+                    `}
+                    >
+                      {amount}
+                    </div>
                   </div>
-                  <div className="text-sm font-bold text-white mb-1 truncate">
+
+                  {/* Name - Bottom */}
+                  <div className="text-slate-100 font-semibold text-sm text-shadow-lg">
                     {ingredient.name}
-                  </div>
-                  <div className={`text-lg font-bold mb-2 ${isAvailable ? 'text-green-300' : 'text-gray-500'}`}>
-                    {amount}
-                  </div>
-                  
-                  {/* Rarity Badge */}
-                  <div className={`text-xs px-2 py-1 rounded-full font-medium ${
-                    ingredient.rarity === 'common' ? 'bg-gray-700 text-gray-200' :
-                    ingredient.rarity === 'uncommon' ? 'bg-green-700 text-green-200' :
-                    ingredient.rarity === 'rare' ? 'bg-blue-700 text-blue-200' :
-                    'bg-purple-700 text-purple-200'
-                  }`}>
-                    {ingredient.rarity.toUpperCase()}
                   </div>
                 </div>
 
-                {/* Add Effect */}
+                {/* Hover Effect - Subtle Plus */}
                 {isAvailable && (
-                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">+</span>
+                  <div className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
+                    <div className="w-10 h-10 rounded-full bg-slate-800/80 backdrop-blur-sm border border-slate-600 flex items-center justify-center">
+                      <span className="text-slate-200 font-bold text-xl">
+                        +
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Out of Stock Overlay */}
+                {!isAvailable && (
+                  <div className="absolute inset-0 flex items-center justify-center z-20">
+                    <div className="bg-slate-950/80 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-slate-700/50">
+                      <span className="text-slate-500 font-bold text-xs">
+                        OUT OF STOCK
+                      </span>
+                    </div>
                   </div>
                 )}
               </button>
 
-              {/* Tooltip */}
-              {isSelected && (
-                <div className="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-3 bg-gray-900 border border-gray-600 rounded-lg shadow-xl min-w-[200px]">
-                  <div className="text-sm text-white font-medium mb-1">{ingredient.name}</div>
-                  <div className="text-xs text-gray-400 mb-2">{ingredient.description}</div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500">Available: {amount}</span>
-                    <div className={`text-xs px-2 py-1 rounded ${
-                      ingredient.rarity === 'common' ? 'bg-gray-600 text-gray-200' :
-                      ingredient.rarity === 'uncommon' ? 'bg-green-600 text-green-200' :
-                      ingredient.rarity === 'rare' ? 'bg-blue-600 text-blue-200' :
-                      'bg-purple-600 text-purple-200'
-                    }`}>
-                      {ingredient.rarity}
+              {/* Hover Tooltip */}
+              {isHovered && isAvailable && (
+                <div className="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 pointer-events-none">
+                  <div className="bg-slate-900/98 backdrop-blur-md border border-slate-700/70 rounded-lg shadow-2xl p-3 min-w-[220px]">
+                    <div className="text-sm text-slate-100 font-bold mb-1">
+                      {ingredient.name}
                     </div>
+                    <div className="text-xs text-slate-400 mb-2">
+                      {ingredient.description}
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-slate-500">
+                        Stock: {amount}
+                      </span>
+                      <div
+                        className={`text-xs px-2 py-0.5 rounded ${
+                          ingredient.rarity === "common"
+                            ? "bg-slate-700 text-slate-300"
+                            : ingredient.rarity === "uncommon"
+                            ? "bg-emerald-700 text-emerald-300"
+                            : ingredient.rarity === "rare"
+                            ? "bg-blue-700 text-blue-300"
+                            : "bg-amber-700 text-amber-300"
+                        }`}
+                      >
+                        {ingredient.rarity}
+                      </div>
+                    </div>
+                    {/* Tooltip Arrow */}
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-slate-900/98"></div>
                   </div>
-                  {/* Tooltip Arrow */}
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                 </div>
               )}
             </div>
@@ -145,9 +212,12 @@ export default function ImprovedInventory({ inventory, onAddToCauldron }: Improv
       </div>
 
       {/* Quick Stats */}
-      <div className="mt-6 p-4 bg-gray-800/50 rounded-lg">
-        <div className="text-sm text-gray-400 text-center">
-          Total Ingredients: {Object.values(inventory).reduce((sum, amount) => sum + amount, 0)}
+      <div className="mt-6 p-3 bg-slate-800/50 rounded-lg border border-slate-700/50">
+        <div className="text-sm text-slate-400 text-center">
+          Total Ingredients:{" "}
+          <span className="text-slate-200 font-bold">
+            {Object.values(inventory).reduce((sum, amount) => sum + amount, 0)}
+          </span>
         </div>
       </div>
     </div>

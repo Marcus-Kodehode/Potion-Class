@@ -90,3 +90,51 @@ imation Delays */
 .animate-brew-progress {
   animation: brew-progress 2.5s ease-in-out;
 }
+/*
+ Text Shadow for better readability on images */
+.text-shadow-lg {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.text-shadow {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Slow pulse for legendary items */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Image hover effects */
+.ingredient-card-image {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.ingredient-card:hover .ingredient-card-image {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+/*
+ Custom Scrollbar for Cauldron */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(31, 41, 55, 0.5);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.5);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.7);
+}

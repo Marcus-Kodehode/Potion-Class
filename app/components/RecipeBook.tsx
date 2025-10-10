@@ -26,9 +26,10 @@ export default function RecipeBook({ recipes, discoveredRecipes, craftedPotions 
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-4 right-4 bg-amber-600 hover:bg-amber-700 text-white p-3 rounded-full shadow-lg transition-colors z-50"
+        className="bg-slate-800/90 hover:bg-slate-700/90 backdrop-blur-sm text-slate-100 p-3 rounded-lg shadow-lg transition-all border border-slate-600/50 hover:border-slate-500/50"
+        title="Recipe Grimoire"
       >
-        <span className="text-2xl">📖</span>
+        <span className="text-xl">📖</span>
       </button>
     );
   }
@@ -81,6 +82,28 @@ export default function RecipeBook({ recipes, discoveredRecipes, craftedPotions 
               {standardRecipes.map(recipe => (
                 <RecipeCard key={recipe.id} recipe={recipe} craftedCount={craftedPotions[recipe.id] || 0} />
               ))}
+              
+              {/* Undiscovered Standard Recipes */}
+              {Object.values(recipes).filter(r => r.type === 'standard' && !discoveredRecipes.includes(r.id)).length > 0 && (
+                <div className="mt-8">
+                  <h3 className="text-lg font-semibold text-blue-300 mb-4">Undiscovered Recipes</h3>
+                  <div className="space-y-3">
+                    {Object.values(recipes)
+                      .filter(r => r.type === 'standard' && !discoveredRecipes.includes(r.id))
+                      .map(recipe => (
+                        <div key={recipe.id} className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                          <div className="flex items-center space-x-3 mb-2">
+                            <span className="text-2xl">🔒</span>
+                            <span className="text-gray-400 font-medium">Locked Recipe</span>
+                          </div>
+                          {recipe.hint && (
+                            <p className="text-sm text-blue-300 italic">💡 Hint: {recipe.hint}</p>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

@@ -17,7 +17,7 @@ const INITIAL_STATE: GameState = {
     scales: 1
   },
   cauldron: {},
-  discoveredRecipes: ['healingPotion', 'manaPotion', 'strengthPotion', 'speedPotion', 'invisibilityPotion', 'fireResistance', 'nightVision', 'levitation', 'poisonResistance', 'luck'],
+  discoveredRecipes: ['healingPotion'], // Start with only one recipe
   craftedPotions: {},
   totalPotionsCrafted: 0
 };
@@ -41,6 +41,16 @@ export function useGameState() {
   useEffect(() => {
     localStorage.setItem('potionGame', JSON.stringify(gameState));
   }, [gameState]);
+
+  const addIngredientToInventory = (ingredientId: string, amount: number = 1) => {
+    setGameState(prev => ({
+      ...prev,
+      inventory: {
+        ...prev.inventory,
+        [ingredientId]: (prev.inventory[ingredientId] || 0) + amount
+      }
+    }));
+  };
 
   const addToCauldron = (ingredientId: string): boolean => {
     if (gameState.inventory[ingredientId] > 0) {
@@ -150,6 +160,7 @@ export function useGameState() {
     clearCauldron,
     craftPotion,
     resetGame,
+    addIngredientToInventory,
     ingredients: INGREDIENTS,
     recipes: RECIPES
   };

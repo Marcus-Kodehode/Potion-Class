@@ -7,6 +7,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
     description: 'Common healing herbs found in dark forests',
     rarity: 'common',
     icon: '🌿',
+    image: '/assets/ingredients/herbs.webp',
     color: '#10b981' // emerald-500
   },
   berries: {
@@ -15,6 +16,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
     description: 'Dark berries with mysterious properties',
     rarity: 'common',
     icon: '🫐',
+    image: '/assets/ingredients/berries.webp',
     color: '#6366f1' // indigo-500
   },
   mushrooms: {
@@ -23,6 +25,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
     description: 'Fungi that grow in the deepest caves',
     rarity: 'uncommon',
     icon: '🍄',
+    image: '/assets/ingredients/mushrooms.webp',
     color: '#8b5cf6' // violet-500
   },
   water: {
@@ -31,6 +34,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
     description: 'Pure water blessed by moonlight',
     rarity: 'common',
     icon: '💧',
+    image: '/assets/ingredients/water.webp',
     color: '#06b6d4' // cyan-500
   },
   flowers: {
@@ -39,6 +43,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
     description: 'Beautiful but dangerous flower petals',
     rarity: 'uncommon',
     icon: '🌸',
+    image: '/assets/ingredients/flower.webp',
     color: '#ec4899' // pink-500
   },
   crystals: {
@@ -47,6 +52,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
     description: 'Crystals that absorb light itself',
     rarity: 'rare',
     icon: '💎',
+    image: '/assets/ingredients/crystals.webp',
     color: '#3b82f6' // blue-500
   },
   bones: {
@@ -55,6 +61,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
     description: 'Bones from creatures long forgotten',
     rarity: 'rare',
     icon: '🦴',
+    image: '/assets/ingredients/bones.webp',
     color: '#6b7280' // gray-500
   },
   scales: {
@@ -63,6 +70,7 @@ export const INGREDIENTS: { [key: string]: Ingredient } = {
     description: 'Scales from the last dragons',
     rarity: 'legendary',
     icon: '🐉',
+    image: '/assets/ingredients/scales.webp',
     color: '#f59e0b' // amber-500
   }
 };
