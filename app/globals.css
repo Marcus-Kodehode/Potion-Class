@@ -150,3 +150,55 @@ afe area for mobile devices with notches */
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
+
+/* Font Variables */
+:root {
+  --font-title: var(--font-cinzel);
+  --font-body: var(--font-inter);
+  --font-code: var(--font-jetbrains);
+}
+
+/* Apply fonts */
+body {
+  font-family: var(--font-body), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title), serif;
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-code), monospace;
+}
+
+/* Magical text effects */
+.text-magical {
+  background: linear-gradient(
+    90deg,
+    #a855f7,
+    #ec4899,
+    #f59e0b,
+    #10b981,
+    #3b82f6,
+    #a855f7
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Glow effect for title */
+.text-glow {
+  text-shadow: 
+    0 0 10px rgba(168, 85, 247, 0.5),
+    0 0 20px rgba(168, 85, 247, 0.3),
+    0 0 30px rgba(168, 85, 247, 0.2);
+}

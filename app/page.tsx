@@ -44,22 +44,27 @@ export default function Home() {
       {/* Content Container */}
       <div className="relative z-10 h-full flex flex-col">
         {/* Header */}
-        <header className="bg-black/30 backdrop-blur-sm border-b border-purple-500/30 p-4 flex-shrink-0">
+        <header className="bg-black/40 backdrop-blur-md border-b border-purple-500/50 p-4 flex-shrink-0 shadow-lg shadow-purple-900/20">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Image
-                src="/assets/icons/logo.png"
-                alt="Mystic Potion Brewery"
-                width={48}
-                height={48}
-                className="rounded-lg"
-              />
+            <div className="flex items-center space-x-4">
+              {/* Logo with glow effect */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-purple-500/30 blur-xl rounded-lg"></div>
+                <Image
+                  src="/assets/icons/logo.png"
+                  alt="Mystic Potion Brewery"
+                  width={56}
+                  height={56}
+                  className="rounded-lg relative z-10 border-2 border-purple-400/50"
+                />
+              </div>
+
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-bold text-magical text-glow tracking-wide">
                   Mystic Potion Brewery
                 </h1>
-                <p className="text-gray-400 text-sm">
-                  Code Your Spells - Brew Your Knowlegde
+                <p className="text-slate-300 text-sm mt-1 font-medium tracking-wider">
+                  ✨ Code Your Spells • Brew Your Knowledge ✨
                 </p>
               </div>
             </div>
