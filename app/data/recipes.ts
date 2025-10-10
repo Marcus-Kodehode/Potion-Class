@@ -9,7 +9,7 @@ export const RECIPES: { [key: string]: Recipe } = {
     ingredients: { herbs: 2, berries: 1, mushrooms: 1 },
     type: "standard",
     discovered: true,
-    hint: "A basic healing potion - your starting recipe"
+    hint: "A basic healing potion - your starting recipe",
   },
   manaPotion: {
     id: "manaPotion",
@@ -18,7 +18,7 @@ export const RECIPES: { [key: string]: Recipe } = {
     ingredients: { water: 2, flowers: 1, crystals: 1 },
     type: "standard",
     discovered: false,
-    hint: "Combine water with rare crystals and delicate flowers"
+    hint: "Combine water with rare crystals and delicate flowers",
   },
   strengthPotion: {
     id: "strengthPotion",
@@ -27,7 +27,7 @@ export const RECIPES: { [key: string]: Recipe } = {
     ingredients: { bones: 1, mushrooms: 2, herbs: 1 },
     type: "standard",
     discovered: false,
-    hint: "Ancient bones mixed with fungi and herbs grant strength"
+    hint: "Ancient bones mixed with fungi and herbs grant strength",
   },
   speedPotion: {
     id: "speedPotion",
@@ -36,16 +36,16 @@ export const RECIPES: { [key: string]: Recipe } = {
     ingredients: { flowers: 2, water: 1, berries: 2 },
     type: "standard",
     discovered: false,
-    hint: "Light ingredients - flowers, water, and berries for speed"
+    hint: "Light ingredients - flowers, water, and berries for speed",
   },
   invisibilityPotion: {
     id: "invisibilityPotion",
     name: "Potion of Incognito Mode",
     description: "Become invisible like your browsing history",
-    ingredients: { crystals: 1, flowers: 1, water: 2 },
+    ingredients: { mushrooms: 1, flowers: 2, water: 1 },
     type: "standard",
     discovered: false,
-    hint: "Clarity and purity - crystals and water with a touch of beauty"
+    hint: "Darkness and beauty combined with purity",
   },
   fireResistance: {
     id: "fireResistance",
@@ -54,7 +54,7 @@ export const RECIPES: { [key: string]: Recipe } = {
     ingredients: { scales: 1, water: 3, herbs: 1 },
     type: "standard",
     discovered: false,
-    hint: "Dragon scales cooled with water and herbs"
+    hint: "Dragon scales cooled with water and herbs",
   },
   nightVision: {
     id: "nightVision",
@@ -63,7 +63,7 @@ export const RECIPES: { [key: string]: Recipe } = {
     ingredients: { mushrooms: 2, crystals: 1, bones: 1 },
     type: "standard",
     discovered: false,
-    hint: "Things that thrive in darkness - fungi, crystals, and bones"
+    hint: "Things that thrive in darkness - fungi, crystals, and bones",
   },
   levitation: {
     id: "levitation",
@@ -72,7 +72,7 @@ export const RECIPES: { [key: string]: Recipe } = {
     ingredients: { flowers: 3, crystals: 2 },
     type: "standard",
     discovered: false,
-    hint: "Light and airy - only flowers and crystals"
+    hint: "Light and airy - only flowers and crystals",
   },
   poisonResistance: {
     id: "poisonResistance",
@@ -81,7 +81,7 @@ export const RECIPES: { [key: string]: Recipe } = {
     ingredients: { herbs: 3, berries: 2, water: 1 },
     type: "standard",
     discovered: false,
-    hint: "Natural cleansing - herbs, berries, and pure water"
+    hint: "Natural cleansing - herbs, berries, and pure water",
   },
   luck: {
     id: "luck",
@@ -90,7 +90,7 @@ export const RECIPES: { [key: string]: Recipe } = {
     ingredients: { berries: 1, flowers: 1, crystals: 1, bones: 1 },
     type: "standard",
     discovered: false,
-    hint: "A bit of everything - balance brings fortune"
+    hint: "A bit of everything - balance brings fortune",
   },
 
   // Special Hidden Potions

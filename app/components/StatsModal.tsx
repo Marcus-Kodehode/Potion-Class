@@ -1,25 +1,30 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { GameState } from '../types/game';
-import { RECIPES } from '../data/recipes';
+import { useState } from "react";
+import { GameState } from "../types/game";
+import { RECIPES } from "../data/recipes";
 
 interface StatsModalProps {
   gameState: GameState;
   onResetGame: () => void;
 }
 
-export default function StatsModal({ gameState, onResetGame }: StatsModalProps) {
+export default function StatsModal({
+  gameState,
+  onResetGame,
+}: StatsModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const totalDiscovered = gameState.discoveredRecipes.length;
-  const specialPotionsDiscovered = gameState.discoveredRecipes.filter(id => {
+  const specialPotionsDiscovered = gameState.discoveredRecipes.filter((id) => {
     const recipe = RECIPES[id];
-    return recipe && recipe.type === 'special';
+    return recipe && recipe.type === "special";
   }).length;
 
   const totalRecipes = Object.keys(RECIPES).length;
-  const completionPercentage = Math.round((totalDiscovered / totalRecipes) * 100);
+  const completionPercentage = Math.round(
+    (totalDiscovered / totalRecipes) * 100
+  );
 
   if (!isOpen) {
     return (
@@ -34,13 +39,15 @@ export default function StatsModal({ gameState, onResetGame }: StatsModalProps) 
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-900 border-2 border-blue-500 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center md:p-4">
+      <div className="bg-gray-900 border-2 border-blue-500 md:rounded-lg max-w-2xl w-full h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="bg-blue-600 p-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <span className="text-3xl">📊</span>
-            <h2 className="text-2xl font-bold text-white">Alchemist Statistics</h2>
+            <h2 className="text-2xl font-bold text-white">
+              Alchemist Statistics
+            </h2>
           </div>
           <button
             onClick={() => setIsOpen(false)}
@@ -51,7 +58,7 @@ export default function StatsModal({ gameState, onResetGame }: StatsModalProps) 
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+        <div className="p-6 overflow-y-auto flex-1 md:max-h-[calc(90vh-80px)]">
           {/* Main Stats Grid */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="bg-gradient-to-br from-green-900/30 to-green-800/30 border border-green-500/50 rounded-lg p-6 text-center">
@@ -60,21 +67,21 @@ export default function StatsModal({ gameState, onResetGame }: StatsModalProps) 
               </div>
               <div className="text-sm text-gray-300">Total Potions Brewed</div>
             </div>
-            
+
             <div className="bg-gradient-to-br from-purple-900/30 to-purple-800/30 border border-purple-500/50 rounded-lg p-6 text-center">
               <div className="text-4xl font-bold text-purple-400 mb-2">
                 {totalDiscovered}
               </div>
               <div className="text-sm text-gray-300">Recipes Discovered</div>
             </div>
-            
+
             <div className="bg-gradient-to-br from-orange-900/30 to-orange-800/30 border border-orange-500/50 rounded-lg p-6 text-center">
               <div className="text-4xl font-bold text-orange-400 mb-2">
                 {specialPotionsDiscovered}
               </div>
               <div className="text-sm text-gray-300">Special Potions Found</div>
             </div>
-            
+
             <div className="bg-gradient-to-br from-blue-900/30 to-blue-800/30 border border-blue-500/50 rounded-lg p-6 text-center">
               <div className="text-4xl font-bold text-blue-400 mb-2">
                 {completionPercentage}%
@@ -87,10 +94,12 @@ export default function StatsModal({ gameState, onResetGame }: StatsModalProps) 
           <div className="mb-6">
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm text-gray-400">Overall Progress</span>
-              <span className="text-sm text-blue-400 font-medium">{totalDiscovered} / {totalRecipes}</span>
+              <span className="text-sm text-blue-400 font-medium">
+                {totalDiscovered} / {totalRecipes}
+              </span>
             </div>
             <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
-              <div 
+              <div
                 className="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-500 rounded-full"
                 style={{ width: `${completionPercentage}%` }}
               />
@@ -110,26 +119,39 @@ export default function StatsModal({ gameState, onResetGame }: StatsModalProps) 
                 .map(([recipeId, count], index) => {
                   const recipe = RECIPES[recipeId];
                   return (
-                    <div 
-                      key={recipeId} 
+                    <div
+                      key={recipeId}
                       className="flex justify-between items-center bg-gray-800 rounded-lg px-4 py-3 border border-gray-700"
                     >
                       <div className="flex items-center space-x-3">
-                        <div className={`
+                        <div
+                          className={`
                           w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm
-                          ${index === 0 ? 'bg-yellow-600 text-yellow-100' :
-                            index === 1 ? 'bg-gray-400 text-gray-900' :
-                            index === 2 ? 'bg-amber-700 text-amber-100' :
-                            'bg-gray-600 text-gray-300'}
-                        `}>
+                          ${
+                            index === 0
+                              ? "bg-yellow-600 text-yellow-100"
+                              : index === 1
+                              ? "bg-gray-400 text-gray-900"
+                              : index === 2
+                              ? "bg-amber-700 text-amber-100"
+                              : "bg-gray-600 text-gray-300"
+                          }
+                        `}
+                        >
                           {index + 1}
                         </div>
                         <div>
-                          <div className="text-white font-medium">{recipe?.name || recipeId}</div>
-                          <div className="text-xs text-gray-400">{recipe?.type || 'unknown'}</div>
+                          <div className="text-white font-medium">
+                            {recipe?.name || recipeId}
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            {recipe?.type || "unknown"}
+                          </div>
                         </div>
                       </div>
-                      <div className="text-blue-400 font-bold text-lg">{count}</div>
+                      <div className="text-blue-400 font-bold text-lg">
+                        {count}
+                      </div>
                     </div>
                   );
                 })}
@@ -137,7 +159,9 @@ export default function StatsModal({ gameState, onResetGame }: StatsModalProps) 
                 <div className="text-gray-400 text-sm text-center py-8 bg-gray-800/50 rounded-lg">
                   <div className="text-4xl mb-2">🧪</div>
                   <p>No potions brewed yet!</p>
-                  <p className="text-xs mt-1">Start brewing to see your stats here</p>
+                  <p className="text-xs mt-1">
+                    Start brewing to see your stats here
+                  </p>
                 </div>
               )}
             </div>
@@ -193,7 +217,11 @@ export default function StatsModal({ gameState, onResetGame }: StatsModalProps) 
           <div className="pt-4 border-t border-gray-700">
             <button
               onClick={() => {
-                if (confirm('Are you sure you want to reset all progress? This cannot be undone!')) {
+                if (
+                  confirm(
+                    "Are you sure you want to reset all progress? This cannot be undone!"
+                  )
+                ) {
                   onResetGame();
                   setIsOpen(false);
                 }
@@ -209,34 +237,43 @@ export default function StatsModal({ gameState, onResetGame }: StatsModalProps) 
   );
 }
 
-function AchievementBadge({ 
-  title, 
-  description, 
-  unlocked, 
-  icon 
-}: { 
-  title: string; 
-  description: string; 
-  unlocked: boolean; 
+function AchievementBadge({
+  title,
+  description,
+  unlocked,
+  icon,
+}: {
+  title: string;
+  description: string;
+  unlocked: boolean;
   icon: string;
 }) {
   return (
-    <div className={`
+    <div
+      className={`
       p-3 rounded-lg border transition-all duration-300
-      ${unlocked 
-        ? 'bg-gradient-to-br from-yellow-900/30 to-amber-900/30 border-yellow-500/50' 
-        : 'bg-gray-800/50 border-gray-700 opacity-50'
+      ${
+        unlocked
+          ? "bg-gradient-to-br from-yellow-900/30 to-amber-900/30 border-yellow-500/50"
+          : "bg-gray-800/50 border-gray-700 opacity-50"
       }
-    `}>
+    `}
+    >
       <div className="flex items-center space-x-2 mb-1">
-        <span className="text-2xl">{unlocked ? icon : '🔒'}</span>
+        <span className="text-2xl">{unlocked ? icon : "🔒"}</span>
         <div className="flex-1 min-w-0">
-          <div className={`text-sm font-bold truncate ${unlocked ? 'text-yellow-300' : 'text-gray-500'}`}>
+          <div
+            className={`text-sm font-bold truncate ${
+              unlocked ? "text-yellow-300" : "text-gray-500"
+            }`}
+          >
             {title}
           </div>
         </div>
       </div>
-      <div className={`text-xs ${unlocked ? 'text-gray-300' : 'text-gray-600'}`}>
+      <div
+        className={`text-xs ${unlocked ? "text-gray-300" : "text-gray-600"}`}
+      >
         {description}
       </div>
     </div>

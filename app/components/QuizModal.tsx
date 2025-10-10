@@ -22,6 +22,7 @@ export default function QuizModal({ onReward }: QuizModalProps) {
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [recentQuestionIds, setRecentQuestionIds] = useState<string[]>([]);
+  const [earnedReward, setEarnedReward] = useState<{ ingredientId: string; amount: number } | null>(null);
 
   const getDifficultyRewards = (diff: QuizDifficulty): { ingredientIds: string[], amount: number } => {
     switch (diff) {
@@ -90,7 +91,10 @@ export default function QuizModal({ onReward }: QuizModalProps) {
     if (correct && difficulty) {
       const rewards = getDifficultyRewards(difficulty);
       const randomIngredient = rewards.ingredientIds[Math.floor(Math.random() * rewards.ingredientIds.length)];
+      setEarnedReward({ ingredientId: randomIngredient, amount: rewards.amount });
       onReward(randomIngredient, rewards.amount);
+    } else {
+      setEarnedReward(null);
     }
   };
 
@@ -105,6 +109,7 @@ export default function QuizModal({ onReward }: QuizModalProps) {
 
   const tryAgain = () => {
     if (difficulty) {
+      setEarnedReward(null);
       startQuiz(difficulty);
     }
   };
@@ -138,8 +143,8 @@ export default function QuizModal({ onReward }: QuizModalProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-900 border-2 border-indigo-500 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
+    <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center md:p-4">
+      <div className="bg-gray-900 border-2 border-indigo-500 md:rounded-xl max-w-2xl w-full h-full md:h-auto md:max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
         {/* Header */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -155,7 +160,7 @@ export default function QuizModal({ onReward }: QuizModalProps) {
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+        <div className="p-6 overflow-y-auto flex-1 md:max-h-[calc(90vh-80px)]">
           {!difficulty ? (
             // Difficulty Selection
             <div>
@@ -295,10 +300,19 @@ export default function QuizModal({ onReward }: QuizModalProps) {
                     <h4 className={`text-2xl font-bold mb-2 ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
                       {isCorrect ? 'Correct!' : 'Incorrect'}
                     </h4>
-                    {isCorrect && difficulty && (
-                      <p className="text-green-300 mb-3">
-                        You earned ingredients! Check your inventory.
-                      </p>
+                    
+                    {/* Show earned reward */}
+                    {isCorrect && earnedReward && (
+                      <div className="mt-4 p-4 bg-slate-800/70 rounded-lg border border-green-500/30">
+                        <p className="text-green-300 mb-3 font-medium">You earned:</p>
+                        <div className="flex items-center justify-center gap-3">
+                          <div className="text-4xl">{INGREDIENTS[earnedReward.ingredientId].icon}</div>
+                          <div className="text-left">
+                            <div className="text-white font-bold">{INGREDIENTS[earnedReward.ingredientId].name}</div>
+                            <div className="text-green-400 text-sm">+{earnedReward.amount}</div>
+                          </div>
+                        </div>
+                      </div>
                     )}
                   </div>
                   

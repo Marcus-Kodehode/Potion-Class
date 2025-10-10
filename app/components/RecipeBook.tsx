@@ -35,8 +35,8 @@ export default function RecipeBook({ recipes, discoveredRecipes, craftedPotions 
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-900 border-2 border-amber-500 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center md:p-4">
+      <div className="bg-gray-900 border-2 border-amber-500 md:rounded-lg max-w-4xl w-full h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="bg-amber-600 p-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -76,7 +76,7 @@ export default function RecipeBook({ recipes, discoveredRecipes, craftedPotions 
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[60vh]">
+        <div className="p-6 overflow-y-auto flex-1 md:max-h-[60vh]">
           {activeTab === 'standard' && (
             <div className="space-y-4">
               {standardRecipes.map(recipe => (

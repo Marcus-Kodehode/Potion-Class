@@ -41,7 +41,7 @@ export default function Home() {
       </header>
 
       {/* Floating Action Buttons - Top Right */}
-      <div className="fixed top-4 right-4 z-50 flex gap-2">
+      <div className="fixed top-20 md:top-4 right-4 z-50 flex flex-col md:flex-row gap-2">
         <StatsModal 
           gameState={gameState}
           onResetGame={resetGame}
